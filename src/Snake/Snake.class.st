@@ -31,34 +31,33 @@ Snake class >> launch [
 { #category : #create }
 Snake >> createString: aPoint [
 
-	| ii jj |
-	display  = Array2D new.
+	| size xvar yvar stringtoprint |
+	xvar := aPoint x.
+	yvar := aPoint y.
+	size := xvar * yvar.
+
+	display  := Array2D new: size.
 	display numberOfColumns: aPoint x + 1.
 	display numberOfRows: aPoint y + 1.
-	
-	ii := 1.
-	1 to: display numberOfRows do:
-		[ display at: ii at: 0 put: '_'. ii := ii + 1.].
-	 
-	ii := 1.
-	2 to: display numberOfRows -1  do:
-		[jj := 2.		
-		display at: ii at: jj put: '|'. 
-		jj := jj + 1.
-		2 to: display numberOfColumns -1 do:
-			[display at: ii at: jj put: '.'. 
-			jj := jj + 1.].
 
-		display at: ii at: jj put: '|'. 
-		ii := ii + 1.
-		jj := 2.
-	].
+	stringtoprint := size asString , ' ', display numberOfColumns asString , ' ', display numberOfRows asString .
+
+	"1 to: display numberOfColumns  do:
+		[ :ii | display at: ii at: 1 put: '_'.].
+	 
+	1 to: display numberOfRows do:
+		[ :ii | display at: ii at: 1 put: '|'. 
+		2 to: display numberOfColumns -1 do:
+			[ :jj | display at: ii at: jj put: '.'.].
+
+		display at: ii at: display numberOfRows + 1 put: '|'. ].
 		
-	ii := 0.
-	0 to: display numberOfRows do:
-		[ display at: ii at: display numberOfColumns put: '_'. ii := ii + 1.].
-	
-	
+
+	1 to: display numberOfColumns do:
+		[ :ii | display at: ii at: display numberOfColumns put: '_'.]."
+		
+"	Transcript open; clear; show: stringtoprint; cr; close."
+	^ display 	
 ]
 
 { #category : #create }
